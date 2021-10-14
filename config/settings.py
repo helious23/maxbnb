@@ -40,12 +40,14 @@ DJANGO_APPS = [
 ]
 # 기존 django 에서 만들어준 app
 
+THIRD_PARTY_APPS = []
+
 PROJECT_APPS = [
     "users.apps.UsersConfig",  # ./users/apps.py
 ]
 # project에서 필요한 app
 
-INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS
+INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -132,6 +134,8 @@ STATIC_URL = "/static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AUTH_USER_MODEL = "users.User"
+
 # customize 한 user model
 # https://docs.djangoproject.com/en/3.2/topics/auth/customizing/#substituting-a-custom-user-model
+
+AUTH_USER_MODEL = "users.User"

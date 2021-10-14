@@ -26,25 +26,22 @@ class User(AbstractUser):
     CURRENCY_KRW = "krw"
     CURRENCY_CHOICES = ((CURRENCY_USD, "$USD"), (CURRENCY_KRW, "₩원"))
 
-    avatar = models.ImageField(null=True, blank=True)
+    avatar = models.ImageField(blank=True)
     gender = models.CharField(
         choices=GENDER_CHOICES,
         max_length=10,
-        null=True,
         blank=True,
     )  # max_length 는 필수
-    bio = models.TextField(default="", blank=True)
-    birthdate = models.DateField(null=True, blank=True)
+    bio = models.TextField(blank=True)
+    birthdate = models.DateField(blank=True, null=True)
     language = models.CharField(
         choices=LANGUAGE_CHOICES,
         max_length=2,
-        null=True,
         blank=True,
     )
     currency = models.CharField(
         choices=CURRENCY_CHOICES,
         max_length=3,
-        null=True,
         blank=True,
     )
     superhost = models.BooleanField(default=False)
