@@ -40,10 +40,12 @@ DJANGO_APPS = [
 ]
 # 기존 django 에서 만들어준 app
 
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = ["django_countries"]
 
 PROJECT_APPS = [
-    "users.apps.UsersConfig",  # ./users/apps.py
+    "core.apps.CoreConfig",
+    "users.apps.UsersConfig",
+    "rooms.apps.RoomsConfig",
 ]
 # project에서 필요한 app
 
