@@ -17,8 +17,8 @@ class AbstractItem(core_models.TimeStampedModel):
 
 
 # Room Type, Amenity 와 같은 항목은 하드 코딩 하는 대신
-# django admin 기능을 이용하여 admin panel 에서 권한이 있는 user 가 직접
-# 추가하거나 수정할 수 있게 함
+# django admin 기능을 이용하여 admin panel 에서
+# 권한이 있는 user 가 직접 추가하거나 수정할 수 있게 함
 
 
 class RoomType(AbstractItem):
