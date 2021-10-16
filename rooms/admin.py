@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
 from . import models
 
 
@@ -19,10 +20,25 @@ class ItemAdmin(admin.ModelAdmin):
     pass
 
 
+class PhotoInline(admin.TabularInline):
+
+    model = models.Photo
+    fieldsets = (
+        (
+            "Photo Info",
+            {
+                "fields": ("caption", "file"),
+            },
+        ),
+    )
+
+
 @admin.register(models.Room)
 class RoomAdmin(admin.ModelAdmin):
 
     """Room Admin Definition"""
+
+    inlines = (PhotoInline,)
 
     fieldsets = (
         (
@@ -79,6 +95,7 @@ class RoomAdmin(admin.ModelAdmin):
         "instant_book",
         "count_amenities",
         "count_photos",
+        "total_rating",
     )
 
     # 순서대로 정렬 가능하게 함
@@ -95,6 +112,11 @@ class RoomAdmin(admin.ModelAdmin):
         "country",
     )
 
+    # user list 가 너무 길어질 경우
+    # filtering 하여 검색할 수 있게 raw_id_fields 사용
+    # Forienkey or ManyToMany 일 경우에만 사용 가능
+    raw_id_fields = ("host",)
+
     # admin search 에 검색할 fields 지정
     # room model 의 host 에서 user 접근하기 위해서 host__username
     # "=keyword" : iexact - 정확하게 일치
@@ -109,6 +131,11 @@ class RoomAdmin(admin.ModelAdmin):
         "facilities",
         "house_rule",
     )
+
+    # admin panel 에서만 save method 호출이 필요할 경우 사용
+    # def save_model(self, request, obj, form, change):
+    #     print(obj, change, form)
+    #     super().save_model(request, obj, form, change)
 
     # list_fields 에 적용할 method
     def count_amenities(self, obj):
@@ -125,6 +152,12 @@ class RoomAdmin(admin.ModelAdmin):
 @admin.register(models.Photo)
 class PhotoAdmin(admin.ModelAdmin):
 
-    """ """
+    """Photo Admin Definition"""
 
-    pass
+    list_display = ("__str__", "get_thumbnail")
+
+    def get_thumbnail(self, obj):
+        return mark_safe(f'<img width="200px" src="{obj.file.url}" />')
+        # input 창의 html 을 실행 시키기 위해 mark_safe 사용
+
+    get_thumbnail.short_description = "Thumbnail"

@@ -67,7 +67,7 @@ class Photo(core_models.TimeStampedModel):
     """Photo Model Definition"""
 
     caption = models.CharField(max_length=80)
-    file = models.ImageField()
+    file = models.ImageField(upload_to="room_photos")  # uploads/room_photos
     room = models.ForeignKey("Room", related_name="photos", on_delete=models.CASCADE)
 
     def __str__(self):
@@ -116,3 +116,20 @@ class Room(core_models.TimeStampedModel):
     # class 이름을 class.name 으로 다시 보여줌
     def __str__(self):
         return self.name
+
+    # model 자체를 intercept 하여 부모 class (models.Model) 의 save() method 호출
+    # model 을 intercept 하는것이므로 admin panel 에서의 수정 뿐만 아니라
+    # 다른 모든 수정 상황에서 적용됨 ex) frontend, admin 등
+    def save(self, *args, **kwargs):
+        self.city = self.city.title()
+        super().save(*args, **kwargs)
+
+    def total_rating(self):
+        all_reviews = self.reviews.all()
+        all_ratings = 0
+        for review in all_reviews:
+            all_ratings += review.rating_average()
+        try:
+            return all_ratings / len(all_reviews)
+        except ZeroDivisionError:
+            return "No reviews"

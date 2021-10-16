@@ -26,7 +26,8 @@ class User(AbstractUser):
     CURRENCY_KRW = "krw"
     CURRENCY_CHOICES = ((CURRENCY_USD, "$USD"), (CURRENCY_KRW, "₩원"))
 
-    avatar = models.ImageField(blank=True)
+    # upload_to : setting 에서 지정한 media_root 안에 세부 폴더 지정할 수 있음
+    avatar = models.ImageField(blank=True, upload_to="avatars")
     gender = models.CharField(
         choices=GENDER_CHOICES,
         max_length=10,

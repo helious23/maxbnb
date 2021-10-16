@@ -147,3 +147,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # https://docs.djangoproject.com/en/3.2/topics/auth/customizing/#substituting-a-custom-user-model
 
 AUTH_USER_MODEL = "users.User"
+
+# upload 파일을 위한 경로 지정
+# BASE_DIR 에 지정 경로 join
+MEDIA_ROOT = Path.joinpath(BASE_DIR, "uploads")
+
+MEDIA_URL = "media/"
