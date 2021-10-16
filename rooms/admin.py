@@ -11,6 +11,11 @@ class ItemAdmin(admin.ModelAdmin):
 
     """Item Admin Definition"""
 
+    list_display = ("name", "used_by")
+
+    def used_by(self, obj):
+        return obj.rooms.count()
+
     pass
 
 
@@ -22,7 +27,17 @@ class RoomAdmin(admin.ModelAdmin):
     fieldsets = (
         (
             "Basic Info",
-            {"fields": ("name", "description", "country", "address", "price")},
+            {
+                "fields": (
+                    "name",
+                    "description",
+                    "country",
+                    "city",
+                    "address",
+                    "price",
+                    "room_type",
+                )
+            },
         ),
         ("Times", {"fields": ("check_in", "check_out", "instant_book")}),
         (
@@ -63,6 +78,7 @@ class RoomAdmin(admin.ModelAdmin):
         "check_out",
         "instant_book",
         "count_amenities",
+        "count_photos",
     )
 
     # 순서대로 정렬 가능하게 함
@@ -87,16 +103,23 @@ class RoomAdmin(admin.ModelAdmin):
     search_fields = ("^city", "^host__username")
 
     # ManytoMany field 에만 적용
+    # 왼쪽 오른쪽으로 나눠 선택할 수 있게 함
     filter_horizontal = (
         "amenities",
         "facilities",
         "house_rule",
     )
 
+    # list_fields 에 적용할 method
     def count_amenities(self, obj):
         return obj.amenities.count()
 
     count_amenities.short_description = "# Amenities"
+
+    def count_photos(self, obj):
+        return obj.photos.count()
+
+    count_photos.short_description = "# Photos"
 
 
 @admin.register(models.Photo)
