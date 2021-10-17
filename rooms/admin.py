@@ -17,17 +17,19 @@ class ItemAdmin(admin.ModelAdmin):
     def used_by(self, obj):
         return obj.rooms.count()
 
-    pass
-
 
 class PhotoInline(admin.TabularInline):
 
     model = models.Photo
+
     fieldsets = (
         (
             "Photo Info",
             {
-                "fields": ("caption", "file"),
+                "fields": (
+                    "caption",
+                    "file",
+                ),
             },
         ),
     )
@@ -93,7 +95,7 @@ class RoomAdmin(admin.ModelAdmin):
         "check_in",
         "check_out",
         "instant_book",
-        "count_amenities",
+        # "count_amenities",
         "count_photos",
         "total_rating",
     )
@@ -138,10 +140,10 @@ class RoomAdmin(admin.ModelAdmin):
     #     super().save_model(request, obj, form, change)
 
     # list_fields 에 적용할 method
-    def count_amenities(self, obj):
-        return obj.amenities.count()
+    # def count_amenities(self, obj):
+    #     return obj.amenities.count()
 
-    count_amenities.short_description = "# Amenities"
+    # count_amenities.short_description = "# Amenities"
 
     def count_photos(self, obj):
         return obj.photos.count()
@@ -154,10 +156,16 @@ class PhotoAdmin(admin.ModelAdmin):
 
     """Photo Admin Definition"""
 
-    list_display = ("__str__", "get_thumbnail")
+    list_display = ("room", "photo_owner", "caption", "get_thumbnail")
+    raw_id_fields = ("room",)
+
+    def photo_owner(self, obj):
+        return obj.room.host.username
+
+    photo_owner.short_description = "Room Owner"
 
     def get_thumbnail(self, obj):
-        return mark_safe(f'<img width="200px" src="{obj.file.url}" />')
+        return mark_safe(f'<img width="100px" src="{obj.file.url}" />')
         # input 창의 html 을 실행 시키기 위해 mark_safe 사용
 
     get_thumbnail.short_description = "Thumbnail"

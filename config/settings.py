@@ -152,4 +152,6 @@ AUTH_USER_MODEL = "users.User"
 # BASE_DIR 에 지정 경로 join
 MEDIA_ROOT = Path.joinpath(BASE_DIR, "uploads")
 
+# 절대 경로로 작성 해야 정확한 url 나옴 /media/
+# 최근 버전에서는 상대 경로로 작성해도 상관 없는듯 함
 MEDIA_URL = "media/"

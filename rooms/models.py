@@ -62,18 +62,6 @@ class HouseRule(AbstractItem):
     pass
 
 
-class Photo(core_models.TimeStampedModel):
-
-    """Photo Model Definition"""
-
-    caption = models.CharField(max_length=80)
-    file = models.ImageField(upload_to="room_photos")  # uploads/room_photos
-    room = models.ForeignKey("Room", related_name="photos", on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.caption
-
-
 class Room(core_models.TimeStampedModel):
 
     """Room Model Definition"""
@@ -117,7 +105,7 @@ class Room(core_models.TimeStampedModel):
     def __str__(self):
         return self.name
 
-    # model 자체를 intercept 하여 부모 class (models.Model) 의 save() method 호출
+    # model 자체를 intercept 하여 부모 class (models.Model) 의 save() method override
     # model 을 intercept 하는것이므로 admin panel 에서의 수정 뿐만 아니라
     # 다른 모든 수정 상황에서 적용됨 ex) frontend, admin 등
     def save(self, *args, **kwargs):
@@ -130,6 +118,24 @@ class Room(core_models.TimeStampedModel):
         for review in all_reviews:
             all_ratings += review.rating_average()
         try:
-            return all_ratings / len(all_reviews)
+            return round(all_ratings / len(all_reviews), 2)
         except ZeroDivisionError:
             return "No reviews"
+
+
+class Photo(core_models.TimeStampedModel):
+
+    """Photo Model Definition"""
+
+    # uploads 폴더 내에 user_id/room_photos_room_id/파일명 으로 저장
+    def user_directory_path(instance, filename):
+        return "user_{0}/room_photos/room_{1}/{2}".format(
+            instance.room.host.id, instance.room.id, filename
+        )
+
+    caption = models.CharField(max_length=80)
+    file = models.ImageField(upload_to=user_directory_path)
+    room = models.ForeignKey("Room", related_name="photos", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.caption

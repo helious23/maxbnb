@@ -55,3 +55,8 @@ class ReservationAdmin(admin.ModelAdmin):
     )
 
     list_filter = ("status", ProgressListFilter, FinishListFilter)
+
+    raw_id_fields = (
+        "guest",
+        "room",
+    )
