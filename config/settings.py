@@ -40,9 +40,7 @@ DJANGO_APPS = [
 ]
 # 기존 django 에서 만들어준 app
 
-THIRD_PARTY_APPS = [
-    "django_countries",
-]
+THIRD_PARTY_APPS = ["django_countries", "django_seed"]
 
 PROJECT_APPS = [
     "core.apps.CoreConfig",
