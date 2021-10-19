@@ -1,14 +1,20 @@
-from django.shortcuts import render, redirect
-from django.core.paginator import EmptyPage, Paginator
+from django.views.generic import ListView
 from . import models
 
 
-def all_rooms(request):
-    page = request.GET.get("page", 1)
-    room_list = models.Room.objects.all()
-    paginator = Paginator(room_list, 10, orphans=5)
-    try:
-        rooms = paginator.page(page)
-        return render(request, "rooms/home.html", context={"page": rooms})
-    except EmptyPage:
-        return redirect("/")
+class HomeView(ListView):
+
+    """HomeView Definition"""
+
+    model = models.Room
+    paginate_by = 10
+    paginate_orphans = 5
+    ordering = "created"
+    page_kwarg = "page"
+    context_object_name = "rooms"
+
+    def get_context_data(self, **kwargs):  # context 수정할 수 있는 함수
+        context = super().get_context_data(
+            **kwargs
+        )  # super() 로 기존의 context 를 유지시켜 줘야 됨
+        return context
