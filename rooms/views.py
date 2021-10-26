@@ -30,20 +30,20 @@ class SearchView(View):
     def get(self, request):
         country = request.GET.get("country")
         if country:
-            form = forms.SearchForm(request.GET)
+            form = forms.SearchForm(request.GET)  # form 내용 받아옴
             if form.is_valid():
+                # cleaned_data.get 으로 form 안의 data 를 바로 받을 수 있음
                 city = form.cleaned_data.get("city")
                 country = form.cleaned_data.get("country")
                 price = form.cleaned_data.get("price")
                 room_type = form.cleaned_data.get("room_type")
-                price = form.cleaned_data.get("price")
                 guests = form.cleaned_data.get("guests")
                 bedrooms = form.cleaned_data.get("bedrooms")
                 beds = form.cleaned_data.get("beds")
                 baths = form.cleaned_data.get("baths")
                 instant_book = form.cleaned_data.get("instant_book")
                 superhost = form.cleaned_data.get("superhost")
-                amenities = form.cleaned_data.get("amenities")
+                amenities = form.cleaned_data.get("amenities")  # queryset 으로 받음
                 facilities = form.cleaned_data.get("facilities")
 
                 filter_args = {}
@@ -84,16 +84,18 @@ class SearchView(View):
                     filter_args["facilities"] = facility
 
                 qs = models.Room.objects.filter(**filter_args).order_by("-created")
+                # paginator 사용 시 queryset 의 order 기준이 필요함
 
                 paginator = Paginator(qs, 10, orphans=5)
 
                 page = request.GET.get("page", 1)
 
                 rooms = paginator.get_page(page)
-                print(rooms)
 
                 return render(
-                    request, "rooms/search.html", {"form": form, "rooms": rooms}
+                    request,
+                    "rooms/search.html",
+                    {"form": form, "rooms": rooms},
                 )
         else:
             form = forms.SearchForm()
