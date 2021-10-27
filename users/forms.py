@@ -26,11 +26,11 @@ class LoginForm(forms.Form):
             self.add_error("email", forms.ValidationError("User Not Found"))
 
 
-class SignUpForm(forms.Form):
+class SignUpForm(forms.ModelForm):
+    class Meta:
+        model = models.User
+        fields = ("first_name", "last_name", "email")
 
-    first_name = forms.CharField(max_length=80)
-    last_name = forms.CharField(max_length=80)
-    email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput)
     password1 = forms.CharField(widget=forms.PasswordInput, label="Confirm Password")
 
@@ -51,12 +51,10 @@ class SignUpForm(forms.Form):
         else:
             return password
 
-    def save(self):
-        first_name = self.cleaned_data.get("first_name")
-        last_name = self.cleaned_data.get("last_name")
+    def save(self, *args, **kwargs):
         email = self.cleaned_data.get("email")
         password = self.cleaned_data.get("password")
-        user = models.User.objects.create_user(email, email, password)
-        user.first_name = first_name
-        user.last_name = last_name
+        user = super().save(commit=False)
+        user.username = email
+        user.set_password(password)
         user.save()
