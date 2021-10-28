@@ -1,10 +1,10 @@
 import os
+import requests
 from django.views.generic import FormView
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth import authenticate, login, logout
 from django.core.files.base import ContentFile
-import requests
 from . import forms, models
 
 
