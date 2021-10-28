@@ -1,13 +1,16 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block page_title %}{% endblock page_title %} | Maxbnb</title>
   </head>
   <body>
     <header>
+    <img src="https://hospitality-on.com/sites/default/files/2018-06/airbnb_logo.png">
     
     {% include "partials/nav.html" %}
 

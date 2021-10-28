@@ -258,3 +258,4 @@ GitHub.sublime-settings
 .DS_Store
 uploads/
 photos_seed/
+node_modules/
