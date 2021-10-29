@@ -8,17 +8,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block page_title %}{% endblock page_title %} | Maxbnb</title>
   </head>
-  <body>
-    <header>
-    <img src="https://hospitality-on.com/sites/default/files/2018-06/airbnb_logo.png">
-    
-    {% include "partials/nav.html" %}
-
-    {% block search_bar %}
-      <form method="GET" action="{% url 'rooms:search' %}" >
-          <input placeholder="Search by City" type="text" name="city" />
-      </form>
-    {% endblock search_bar %}
+  <body class="text-gray-800 mt-24">
+    <header class="container max-w-full inset-0 flex md:grid md:grid-cols-3 items-center justify-between px-10 lg:px-20 h-20 shadow-md fixed bg-white">
+      <div class="items-center hidden md:flex">
+        <a class="flex items-center" href="{% url 'core:home' %}">
+          <img class="w-8" src="{% static 'image/maxbnb_logo.png' %}">
+          <div class="ml-2 text-xl text-red-500 font-bold"><span class="hidden lg:block">maxbnb</span></div>
+        </a>
+      </div>
+      <div class="w-full flex justify-center items-center mx-auto">
+        {% block search_bar %}
+          <form method="GET" action="{% url 'rooms:search' %}" class="w-80">
+              <input class="search-box" placeholder="Search by City" type="text" name="city" />
+          </form>
+        {% endblock search_bar %}
+      </div>
+      <div class="hidden md:flex md:justify-end h-full">
+        {% include "partials/nav.html" %}
+      </div>
 
     </header>
     {% block content %}{% endblock  %} 
