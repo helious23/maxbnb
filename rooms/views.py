@@ -9,9 +9,9 @@ class HomeView(ListView):
     """HomeView Definition"""
 
     model = models.Room
-    paginate_by = 10
+    paginate_by = 24
     paginate_orphans = 5
-    ordering = "host__superhost"
+    ordering = "created"
     page_kwarg = "page"
     context_object_name = "rooms"
 

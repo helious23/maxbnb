@@ -6,8 +6,10 @@ class LoginForm(forms.Form):
 
     """Login Form Definition"""
 
-    email = forms.EmailField()
-    password = forms.CharField(widget=forms.PasswordInput)  # password 입력시 사용
+    email = forms.EmailField(widget=forms.EmailInput(attrs={"placeholder": "E-mail"}))
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={"placeholder": "Password"})
+    )  # password 입력시 사용
 
     def clean(self):
         # 두 fields 가 서로 상관이 있으므로(코드가 중복되므로) clean method 로 함께 관리함
@@ -30,9 +32,21 @@ class SignUpForm(forms.ModelForm):
     class Meta:
         model = models.User
         fields = ("first_name", "last_name", "email")
+        widgets = {
+            "first_name": forms.TextInput(attrs={"placeholder": "First Name"}),
+            "last_name": forms.TextInput(attrs={"placeholder": "Last Name"}),
+            "email": forms.EmailInput(attrs={"placeholder": "E-mail"}),
+        }
 
-    password = forms.CharField(widget=forms.PasswordInput)
-    password1 = forms.CharField(widget=forms.PasswordInput, label="Confirm Password")
+    email = forms.EmailField(widget=forms.EmailInput(attrs={"placeholder": "E-mail"}))
+
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={"placeholder": "Password"})
+    )
+    password1 = forms.CharField(
+        widget=forms.PasswordInput(attrs={"placeholder": "Confirm Password"}),
+        label="Confirm Password",
+    )
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
@@ -45,6 +59,7 @@ class SignUpForm(forms.ModelForm):
     def claen_password1(self):
         password = self.cleaned_data.get("password")
         password1 = self.cleaned_data.get("password1")
+        print(password, password1)
 
         if password != password1:
             raise forms.ValidationError("Password does not match")

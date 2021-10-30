@@ -126,7 +126,11 @@ class Room(core_models.TimeStampedModel):
         try:
             return round(all_ratings / len(all_reviews), 2)
         except ZeroDivisionError:
-            return "No reviews"
+            return 0
+
+    def first_photo(self):
+        (photo,) = self.photos.all()[:1]
+        return photo.file.url
 
 
 class Photo(core_models.TimeStampedModel):

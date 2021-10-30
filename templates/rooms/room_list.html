@@ -1,4 +1,5 @@
 {% extends 'base.html' %} 
+{% load static %}
 
 {% block page_title %}
     Home 
@@ -6,26 +7,57 @@
 
 {% block content %} 
 
+<div style="background-image: url('{% static "image/main_bg.webp" %}')"; class="hidden lg:block bg-cover lg:w-full bg-center lg:h-85vh">
+    <div class="h-full flex items-center justify-center flex-col">
+        <div class="text-xl font-medium mt-40">Not sure any to go? Perfect.</div>
+        <div class="mt-5 px-14 py-5 bg-white rounded-full shadow-xl text-xl font-medium cursor-pointer hover:shadow-2xl transition-all">
+            <a href="{% url 'rooms:search' %}">I'm flexible</a>
+        </div>    
+    </div>
+</div>
+<div style="background-image: url('{% static "image/md_main_bg.webp" %}')"; class="hidden md:block lg:hidden bg-cover bg-center md:w-full md:h-75vh">
+    <div class="h-full flex items-center justify-center flex-col">
+        <div class="text-xl font-medium mt-40">Not sure any to go? Perfect.</div>
+        <div class="mt-5 px-14 py-5 bg-white rounded-full shadow-xl text-xl font-medium cursor-pointer hover:shadow-2xl transition-all">
+            <a href="{% url 'rooms:search' %}">I'm flexible</a>
+        </div>    
+    </div>
+</div>
+<div style="background-image: url('{% static "image/sm_main_bg.webp" %}')"; class="block md:hidden bg-cover bg-center h-85vh w-full">
+    <div class="h-full flex items-center justify-center flex-col">
+        <div class="text-xl font-medium mt-40">Not sure any to go? Perfect.</div>
+        <div class="mt-5 px-14 py-5 bg-white rounded-full shadow-xl text-xl font-medium cursor-pointer hover:shadow-2xl transition-all">
+            <a href="{% url 'rooms:search' %}">I'm flexible</a>
+        </div>    
+    </div>
+</div>
 
-{% for room in rooms %}
-    <h3>
-        <a href="{% url 'rooms:detail' room.pk %}">
-            {{room.name}} / $ {{room.price}}
-        </a>
-    </h3>
-{% endfor %}
 
-<h5>
-{% if page_obj.has_previous %}
-    <a href="?page={{page_obj.previous_page_number}}">Previous</a>
-{% endif %}
+<div class="container mx-auto">
+    <div class="bg-gray-500 h-50vh mt-28 mb-24 rounded-2xl bg-cover bg-center" 
+    style="background-image: url('https://images.unsplash.com/photo-1583426376728-703217582349?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1')">
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        {% for room in rooms %}
+            {% include 'mixins/room_card.html' with room=room %}
+        {% endfor %}
+    </div>
+    
+    <div class="flex justify-center items-center mt-5">
+        {% if page_obj.has_previous %}
+            <a href="?page={{page_obj.previous_page_number}}" class="text-green-700">
+                <i class="fas fa-arrow-left fa-lg"></i>
+            </a>
+        {% endif %}
 
-Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}
+        <div class="mx-5 text-xl font-light">{{page_obj.number}} of {{page_obj.paginator.num_pages}}</div>
 
-{% if page_obj.has_next %}
-    <a href="?page={{page_obj.next_page_number}}">Next</a>
-{% endif %}
-
-</h5>
-
+        {% if page_obj.has_next %}
+            <a href="?page={{page_obj.next_page_number}}" class="text-green-700">
+                <i class="fas fa-arrow-right fa-lg"></i>
+            </a>
+        {% endif %}
+    </div>
+    
+</div>
 {% endblock content %}

@@ -6,8 +6,27 @@
   @apply border border-gray-300 rounded-3xl shadow-md px-4 py-3 w-full placeholder-gray-800 text-sm font-medium hover:shadow-lg focus:outline-none transition-all cursor-pointer;
 }
 .nav_link {
-  @apply ml-8 border-white border-b-2 hover:border-gray-600 h-full flex items-center;
+  @apply border-white border-b-2 hover:border-gray-600 h-full flex items-center;
   a {
     @apply h-full px-2 flex items-center;
+  }
+}
+
+.btn {
+  @apply w-full border rounded p-3 font-light transition-all;
+}
+
+input {
+  @apply w-full border rounded p-3 font-light transition-all border-gray-300 text-left focus:outline-none focus:border-green-600;
+}
+
+form {
+  .input {
+    @apply mb-3;
+    &.has_error {
+      input {
+        @apply border-red-500;
+      }
+    }
   }
 }
