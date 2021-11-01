@@ -6,6 +6,7 @@ module.exports = {
       spacing: {
         "25vh": "25vh",
         "50vh": "50vh",
+        "65vh": "65vh",
         "75vh": "75vh",
         "85vh": "85vh",
         "90vh": "90vh",
@@ -13,7 +14,9 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      brightness: ["hover", "focus"],
+    },
   },
   plugins: [],
 };

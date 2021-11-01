@@ -7,7 +7,7 @@
 {% block content %}
     <div class="h-full">
         <div class="container md:w-6/12 lg:w-5/12 xl:w-1/4 mx-auto mt-40 mb-24 flex flex-col items-center border p-6 border-gray-300">
-            {% include 'mixins/user_avatar.html' with user=user_obj %}
+            {% include 'mixins/user_avatar.html' with user=user_obj amount=20 %}
             {% if user_obj.superhost %}
                     <div class="border border-gray-00 p-1 rounded uppercase text-xs mt-3">superhost</div>
             {% endif %}

@@ -118,6 +118,66 @@ class Room(core_models.TimeStampedModel):
         return reverse("rooms:detail", kwargs={"pk": self.pk})
         # reverse("config.urls.namespace:rooms:urls.name")
 
+    def total_acurrancy(self):
+        all_reviews = self.reviews.all()
+        all_ratings = 0
+        for review in all_reviews:
+            all_ratings += review.acurrancy
+        try:
+            return round(all_ratings / len(all_reviews), 1)
+        except ZeroDivisionError:
+            return 0
+
+    def total_communication(self):
+        all_reviews = self.reviews.all()
+        all_ratings = 0
+        for review in all_reviews:
+            all_ratings += review.communication
+        try:
+            return round(all_ratings / len(all_reviews), 1)
+        except ZeroDivisionError:
+            return 0
+
+    def total_cleanliness(self):
+        all_reviews = self.reviews.all()
+        all_ratings = 0
+        for review in all_reviews:
+            all_ratings += review.cleanliness
+        try:
+            return round(all_ratings / len(all_reviews), 1)
+        except ZeroDivisionError:
+            return 0
+
+    def total_location(self):
+        all_reviews = self.reviews.all()
+        all_ratings = 0
+        for review in all_reviews:
+            all_ratings += review.location
+        try:
+            return round(all_ratings / len(all_reviews), 1)
+        except ZeroDivisionError:
+            return 0
+
+    def total_check_in(self):
+        all_reviews = self.reviews.all()
+        all_ratings = 0
+        for review in all_reviews:
+            all_ratings += review.check_in
+        try:
+            return round(all_ratings / len(all_reviews), 1)
+        except ZeroDivisionError:
+            return 0
+
+    def total_value(self):
+        all_reviews = self.reviews.all()
+        all_ratings = 0
+        for review in all_reviews:
+            all_ratings += review.value
+        try:
+            return round(all_ratings / len(all_reviews), 1)
+        except ZeroDivisionError:
+            return 0
+
     def total_rating(self):
         all_reviews = self.reviews.all()
         all_ratings = 0
@@ -131,6 +191,10 @@ class Room(core_models.TimeStampedModel):
     def first_photo(self):
         (photo,) = self.photos.all()[:1]
         return photo.file.url
+
+    def get_next_four_photos(self):
+        photos = self.photos.all()[1:5]
+        return photos
 
 
 class Photo(core_models.TimeStampedModel):
