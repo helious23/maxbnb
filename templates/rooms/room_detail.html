@@ -1,4 +1,5 @@
 {% extends 'base.html' %} 
+{% load capitals %}
 
 {% block page_title %}
     {{room.name}} 
@@ -103,6 +104,7 @@
                 <a href="{% url 'rooms:edit' room.pk %}" class="btn-link bg-green-400 block text-center">Edit room</a>
                 <a href="{% url 'rooms:delete' room.pk %}" class="btn-link block text-center mt-5">Delete room</a>
             {% else %}
+                {{'something'|capitals}}
                 {% if not request.session.is_hosting %}
                     {% for calender in room.get_calenders %}
                         <div class="mb-20 px-20">
