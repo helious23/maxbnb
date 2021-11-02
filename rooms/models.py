@@ -1,7 +1,10 @@
+from dateutil import relativedelta
+from django.utils import timezone
 from django.db import models
 from django.urls import reverse
 from django_countries.fields import CountryField
 from core import models as core_models
+from cal import Calendar
 
 
 class AbstractItem(core_models.TimeStampedModel):
@@ -128,6 +131,10 @@ class Room(core_models.TimeStampedModel):
         except ZeroDivisionError:
             return 0
 
+    def acurrancy_percent(self):
+        acurrancy = self.total_acurrancy()
+        return acurrancy / 5 * 100
+
     def total_communication(self):
         all_reviews = self.reviews.all()
         all_ratings = 0
@@ -137,6 +144,10 @@ class Room(core_models.TimeStampedModel):
             return round(all_ratings / len(all_reviews), 1)
         except ZeroDivisionError:
             return 0
+
+    def communication_percent(self):
+        communication = self.total_communication()
+        return communication / 5 * 100
 
     def total_cleanliness(self):
         all_reviews = self.reviews.all()
@@ -148,6 +159,10 @@ class Room(core_models.TimeStampedModel):
         except ZeroDivisionError:
             return 0
 
+    def cleanliness_percent(self):
+        cleanliness = self.total_cleanliness()
+        return cleanliness / 5 * 100
+
     def total_location(self):
         all_reviews = self.reviews.all()
         all_ratings = 0
@@ -157,6 +172,10 @@ class Room(core_models.TimeStampedModel):
             return round(all_ratings / len(all_reviews), 1)
         except ZeroDivisionError:
             return 0
+
+    def location_percent(self):
+        location = self.total_location()
+        return location / 5 * 100
 
     def total_check_in(self):
         all_reviews = self.reviews.all()
@@ -168,6 +187,10 @@ class Room(core_models.TimeStampedModel):
         except ZeroDivisionError:
             return 0
 
+    def check_in_percent(self):
+        check_in = self.total_check_in()
+        return check_in / 5 * 100
+
     def total_value(self):
         all_reviews = self.reviews.all()
         all_ratings = 0
@@ -177,6 +200,10 @@ class Room(core_models.TimeStampedModel):
             return round(all_ratings / len(all_reviews), 1)
         except ZeroDivisionError:
             return 0
+
+    def value_percent(self):
+        value = self.total_value()
+        return value / 5 * 100
 
     def total_rating(self):
         all_reviews = self.reviews.all()
@@ -198,6 +225,13 @@ class Room(core_models.TimeStampedModel):
     def get_next_four_photos(self):
         photos = self.photos.all()[1:5]
         return photos
+
+    def get_calenders(self):
+        now = timezone.now()
+        next_month = now + relativedelta.relativedelta(months=1)
+        this_month = Calendar(now.year, now.month)
+        next_month = Calendar(next_month.year, next_month.month)
+        return [this_month, next_month]
 
 
 class Photo(core_models.TimeStampedModel):

@@ -102,7 +102,33 @@
             {% if room.host == user %}
                 <a href="{% url 'rooms:edit' room.pk %}" class="btn-link bg-green-400 block text-center">Edit room</a>
                 <a href="{% url 'rooms:delete' room.pk %}" class="btn-link block text-center mt-5">Delete room</a>
-
+            {% else %}
+                {% if not request.session.is_hosting %}
+                    {% for calender in room.get_calenders %}
+                        <div class="mb-20 px-20">
+                            <div class="text-center mb-5 font-medium">
+                                {{calender.get_month}} / {{calender.year}}
+                            </div>
+                            <div class="grid grid-cols-7 gap-2 text-center">
+                            {% for day in calender.day_names %}
+                                <div class="font-medium">{{day}}</div>
+                            {% endfor %}
+                            {% for date in calender.get_days %}
+                                {% if date.number != 0 %}
+                                    {% if date.past %}
+                                        <div class="bg-gray-200 rounded text-gray-300 p-1 w-full cursor-not-allowed">{{date}}</div>
+                                    {% else %}
+                                        <div class="bg-gray-200 rounded text-gray-600 p-1 w-full hover:bg-red-400 hover:text-white hover:font-medium cursor-pointer">{{date}}</div>
+                                    {% endif %}
+                                {% else %}
+                                    <div></div>
+                                {% endif %}
+                            {% endfor %}
+                            </div>
+                        </div>
+                        
+                    {% endfor %}
+                {% endif %}
             {% endif %}
                 
             </div>
@@ -116,29 +142,59 @@
             <div class="font-medium">{{room.reviews.count}} review{{room.reviews.count|pluralize}}</div>
         </div>
         <div class="grid grid-cols-2 mt-2">
-            <div class="flex items-center justify-between pr-24 mt-2"> 
+            <div class="grid grid-cols-2 pr-24 mt-2"> 
                 <div>Acurrancy </div>
-                <div>{{room.total_acurrancy}}</div>
+                <div class="flex w-full items-center justify-end">
+                    <div class=" md:w-24 lg:w-48 h-1 bg-gray-300 rounded-full mr-5 relative">
+                        <div class="h-1 bg-black rounded-full" style="width:{{room.acurrancy_percent}}%"></div>
+                    </div>
+                    <div>{{room.total_acurrancy}}</div>
+                </div>
             </div>
-            <div class="flex items-center justify-between pr-24 mt-2"> 
+            <div class="grid grid-cols-2 pr-24 mt-2"> 
                 <div>Communication </div> 
-                <div> {{room.total_communication}}</div>
+                <div class="flex w-full items-center justify-end">
+                    <div class=" md:w-24 lg:w-48 h-1 bg-gray-300 rounded-full mr-5 relative">
+                        <div class="h-1 bg-black rounded-full" style="width:{{room.communication_percent}}%"></div>
+                    </div>
+                    <div>{{room.total_communication}}</div>
+                </div>
             </div>
-            <div class="flex items-center justify-between pr-24 mt-2"> 
+            <div class="grid grid-cols-2 pr-24 mt-2"> 
                 <div>Cleanliness </div> 
-                <div> {{room.total_cleanliness}}</div>
+                <div class="flex w-full items-center justify-end">
+                    <div class=" md:w-24 lg:w-48 h-1 bg-gray-300 rounded-full mr-5 relative">
+                        <div class="h-1 bg-black rounded-full" style="width:{{room.cleanliness_percent}}%"></div>
+                    </div>
+                    <div>{{room.total_cleanliness}}</div>
+                </div>
             </div>
-            <div class="flex items-center justify-between pr-24 mt-2"> 
+            <div class="grid grid-cols-2 pr-24 mt-2"> 
                 <div>Location </div> 
-                <div> {{room.total_location}}</div>
+                <div class="flex w-full items-center justify-end">
+                    <div class=" md:w-24 lg:w-48 h-1 bg-gray-300 rounded-full mr-5 relative">
+                        <div class="h-1 bg-black rounded-full" style="width:{{room.location_percent}}%"></div>
+                    </div>
+                    <div>{{room.total_location}}</div>
+                </div>
             </div>
-            <div class="flex items-center justify-between pr-24 mt-2"> 
+            <div class="grid grid-cols-2 pr-24 mt-2"> 
                 <div>Check In </div> 
-                <div> {{room.total_check_in}}</div>
+                <div class="flex w-full items-center justify-end">
+                    <div class=" md:w-24 lg:w-48 h-1 bg-gray-300 rounded-full mr-5 relative">
+                        <div class="h-1 bg-black rounded-full" style="width:{{room.check_in_percent}}%"></div>
+                    </div>
+                    <div>{{room.total_check_in}}</div>
+                </div>
             </div>
-            <div class="flex items-center justify-between pr-24 mt-2"> 
+            <div class="grid grid-cols-2 pr-24 mt-2"> 
                 <div>Value </div> 
-                <div> {{room.total_value}}</div>
+                <div class="flex w-full items-center justify-end">
+                    <div class=" md:w-24 lg:w-48 h-1 bg-gray-300 rounded-full mr-5 relative">
+                        <div class="h-1 bg-black rounded-full" style="width:{{room.value_percent}}%"></div>
+                    </div>
+                    <div>{{room.total_value}}</div>
+                </div>
             </div>
         </div>
         <div class="grid grid-cols-2 gap-5 mt-10">
