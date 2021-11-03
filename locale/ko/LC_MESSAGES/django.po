@@ -1,0 +1,130 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-11-03 17:51+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: templates/base.html:27
+msgid "Search by City"
+msgstr "도시를 검색하세요"
+
+#: templates/lists/list_detail.html:11
+msgid "Your Favourites"
+msgstr "좋아요"
+
+#: templates/lists/list_detail.html:14
+msgid "There are no rooms you choose."
+msgstr "좋아요 표시한 숙소가 없습니다"
+
+#: templates/partials/footer.html:4
+msgid "Welcome to the new world"
+msgstr "새로운 세상으로 여러분을 초대합니다"
+
+#: templates/partials/footer.html:5
+msgid "All rights reserved"
+msgstr "모든 저작권은 Maxbnb에 있습니다"
+
+#: templates/partials/nav.html:7
+msgid "Stop Hosting"
+msgstr "호스팅 멈추기"
+
+#: templates/partials/nav.html:9
+msgid "Start Hosting"
+msgstr "호스팅 시작하기"
+
+#: templates/partials/nav.html:16
+msgid "Create Room"
+msgstr "방 등록하기"
+
+#: templates/partials/nav.html:22
+msgid "Favs"
+msgstr "좋아요"
+
+#: templates/partials/nav.html:27
+msgid "Profile"
+msgstr "프로필"
+
+#: templates/partials/nav.html:32
+msgid "Log out"
+msgstr "로그아웃"
+
+#: templates/partials/nav.html:38
+msgid "Log in"
+msgstr "로그인"
+
+#: templates/partials/nav.html:43
+msgid "Sign Up"
+msgstr "회원 가입"
+
+#: templates/rooms/room_list.html:13 templates/rooms/room_list.html:23
+#: templates/rooms/room_list.html:33
+msgid "Not sure any to go? Perfect"
+msgstr "어디로 떠날지 정해지지 않았나요? 완벽해요"
+
+#: templates/rooms/room_list.html:16 templates/rooms/room_list.html:26
+#: templates/rooms/room_list.html:36
+msgid "I'm flexible"
+msgstr "아무 곳이나 떠나고 싶어요"
+
+#: templates/rooms/room_list.html:61
+#, python-format
+msgid "Page %(current_page)s of %(total_page)s"
+msgstr "%(total_page)s 페이지 중 %(current_page)s 번째"
+
+#: users/mixins.py:13
+msgid "Can't access"
+msgstr "접근할 수 없습니다"
+
+#: users/models.py:24
+msgid "Male"
+msgstr "남성"
+
+#: users/models.py:25
+msgid "Female"
+msgstr "여성"
+
+#: users/models.py:26
+msgid "Other"
+msgstr "기타 성별"
+
+#: users/models.py:32
+msgid "English"
+msgstr "영어"
+
+#: users/models.py:33
+msgid "Korean"
+msgstr "한국어"
+
+#: users/models.py:55
+msgid "gender"
+msgstr "성별"
+
+#: users/models.py:60
+msgid "bio"
+msgstr "상태 메세지"
+
+#: users/models.py:61
+msgid "birthdate"
+msgstr "생년월일"
+
+#: users/models.py:63
+msgid "language"
+msgstr "언어"
+
+#: users/models.py:90
+msgid "Verify Maxbnb Account"
+msgstr "Maxbnb 계정을 인증하세요"

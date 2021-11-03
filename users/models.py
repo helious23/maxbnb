@@ -1,4 +1,5 @@
 import uuid
+from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.core.mail import send_mail
@@ -20,14 +21,17 @@ class User(AbstractUser):
     GENDER_FEMALE = "female"
     GENDER_OTHER = "other"
     GENDER_CHOICES = (
-        (GENDER_MALE, "Male"),
-        (GENDER_FEMALE, "Female"),
-        (GENDER_OTHER, "Other"),
+        (GENDER_MALE, _("Male")),
+        (GENDER_FEMALE, _("Female")),
+        (GENDER_OTHER, _("Other")),
     )
 
     LANGUAGE_ENGLISH = "en"
     LANGUAGE_KOREAN = "kr"
-    LANGUAGE_CHOICES = ((LANGUAGE_ENGLISH, "English"), (LANGUAGE_KOREAN, "한국어"))
+    LANGUAGE_CHOICES = (
+        (LANGUAGE_ENGLISH, _("English")),
+        (LANGUAGE_KOREAN, _("Korean")),
+    )
 
     CURRENCY_USD = "usd"
     CURRENCY_KRW = "krw"
@@ -48,14 +52,19 @@ class User(AbstractUser):
     # upload_to : setting 에서 지정한 media_root 안에 세부 폴더 지정할 수 있음
     avatar = models.ImageField(blank=True, upload_to=user_directory_path)
     gender = models.CharField(
+        _("gender"),
         choices=GENDER_CHOICES,
         max_length=10,
         blank=True,
     )  # max_length 는 필수
-    bio = models.TextField(blank=True)
-    birthdate = models.DateField(blank=True, null=True)
+    bio = models.TextField(_("bio"), blank=True)
+    birthdate = models.DateField(_("birthdate"), blank=True, null=True)
     language = models.CharField(
-        choices=LANGUAGE_CHOICES, max_length=2, blank=True, default=LANGUAGE_KOREAN
+        _("language"),
+        choices=LANGUAGE_CHOICES,
+        max_length=2,
+        blank=True,
+        default=LANGUAGE_KOREAN,
     )
     currency = models.CharField(
         choices=CURRENCY_CHOICES, max_length=3, blank=True, default=CURRENCY_KRW
@@ -78,7 +87,7 @@ class User(AbstractUser):
                 "emails/verify_email.html", {"secret": secret}
             )
             send_mail(
-                "Verify Maxbnb Account",
+                _("Verify Maxbnb Account"),
                 strip_tags(html_message),
                 settings.EMAIL_FROM,
                 [self.email],

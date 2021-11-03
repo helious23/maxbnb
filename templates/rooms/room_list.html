@@ -1,4 +1,5 @@
 {% extends 'base.html' %} 
+{% load i18n %}
 {% load static %}
 
 {% block page_title %}
@@ -9,26 +10,32 @@
 
 <div style="background-image: url('{% static "image/main_bg.webp" %}')"; class="hidden lg:block bg-cover lg:w-full bg-center lg:h-90vh lg:-mt-16">
     <div class="h-full flex items-center justify-center flex-col">
-        <div class="text-xl font-medium mt-40">Not sure any to go? Perfect.</div>
-        <div class="mt-5 px-14 py-5 bg-white rounded-full shadow-xl text-xl font-medium cursor-pointer hover:shadow-2xl transition-all">
-            <a href="{% url 'rooms:search' %}">I'm flexible</a>
-        </div>    
+        <div class="text-xl font-medium mt-40">{% trans "Not sure any to go? Perfect" %}.</div>
+        <a href="{% url 'rooms:search' %}">
+            <div class="mt-5 px-14 py-5 bg-white rounded-full shadow-xl text-xl font-medium cursor-pointer hover:shadow-2xl transition-all">
+                <div>{% trans "I'm flexible" %}</div>
+            </div>    
+        </a>
     </div>
 </div>
 <div style="background-image: url('{% static "image/md_main_bg.webp" %}')"; class="hidden md:block lg:hidden bg-cover bg-center md:w-full md:h-75vh">
     <div class="h-full flex items-center justify-center flex-col">
-        <div class="text-xl font-medium mt-40">Not sure any to go? Perfect.</div>
-        <div class="mt-5 px-14 py-5 bg-white rounded-full shadow-xl text-xl font-medium cursor-pointer hover:shadow-2xl transition-all">
-            <a href="{% url 'rooms:search' %}">I'm flexible</a>
-        </div>    
+        <div class="text-xl font-medium mt-40">{% trans "Not sure any to go? Perfect" %}.</div>
+        <a href="{% url 'rooms:search' %}">
+            <div class="mt-5 px-14 py-5 bg-white rounded-full shadow-xl text-xl font-medium cursor-pointer hover:shadow-2xl transition-all">
+                <div>{% trans "I'm flexible" %}</div>
+            </div>    
+        </a>
     </div>
 </div>
 <div style="background-image: url('{% static "image/sm_main_bg.webp" %}')"; class="block md:hidden bg-cover bg-center h-85vh w-full">
     <div class="h-full flex items-center justify-center flex-col">
-        <div class="text-xl font-medium mt-40">Not sure any to go? Perfect.</div>
-        <div class="mt-5 px-14 py-5 bg-white rounded-full shadow-xl text-xl font-medium cursor-pointer hover:shadow-2xl transition-all">
-            <a href="{% url 'rooms:search' %}">I'm flexible</a>
-        </div>    
+        <div class="text-xl font-medium mt-40">{% trans "Not sure any to go? Perfect" %}.</div>
+        <a href="{% url 'rooms:search' %}">
+            <div class="mt-5 px-14 py-5 bg-white rounded-full shadow-xl text-xl font-medium cursor-pointer hover:shadow-2xl transition-all">
+                <div>{% trans "I'm flexible" %}</div>
+            </div>    
+        </a>
     </div>
 </div>
 
@@ -50,7 +57,9 @@
             </a>
         {% endif %}
 
-        <div class="mx-5 text-xl font-light">{{page_obj.number}} of {{page_obj.paginator.num_pages}}</div>
+        <div class="mx-5 text-xl font-light">
+            {% blocktrans with current_page=page_obj.number total_page=page_obj.paginator.num_pages %}Page {{current_page}} of {{total_page}}{% endblocktrans %}
+        </div>
 
         {% if page_obj.has_next %}
             <a href="?page={{page_obj.next_page_number}}" class="text-green-700">
