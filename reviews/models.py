@@ -51,3 +51,6 @@ class Review(core_models.TimeStampedModel):
         return round(avg, 2)  # 소수점 3자리수 에서 반올림
 
     rating_average.short_description = "AVG."
+
+    class Meta:
+        ordering = ("-created",)
