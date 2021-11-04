@@ -99,9 +99,13 @@ if DEBUG:
     }
 else:
     DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": BASE_DIR / "db.sqlite3",
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'PORT': '3306',
+            'HOST': os.environ.get("RDS_HOST"),
+            'NAME': os.environ.get("RDS_NAME"),
+            'USER': os.environ.get("RDS_USER"),
+            'PASSWORD': os.environ.get("RDS_PASSWORD"),
         }
     }
 
