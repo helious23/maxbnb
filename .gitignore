@@ -259,3 +259,8 @@ GitHub.sublime-settings
 uploads/
 photos_seed/
 node_modules/
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
