@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.edit import DeleteView, FormView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from users import mixins as user_mixins
 from . import models, forms
 
@@ -24,7 +25,7 @@ class HomeView(ListView):
     context_object_name = "rooms"
 
 
-class RoomDetail(DetailView):
+class RoomDetail(LoginRequiredMixin, DetailView):
 
     """Room Detail Definition"""
 

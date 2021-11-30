@@ -90,7 +90,7 @@ class Room(core_models.TimeStampedModel):
     # room 에서 user(host)를 찾을 때 사용하는 method 변경 시,
     # related_name 사용하여 변경
     # default: room_set -> rooms
-    # user.room.all()
+    # user.rooms.all()
     host = models.ForeignKey(
         "users.User", related_name="rooms", on_delete=models.CASCADE
     )  # ManyToOne
@@ -100,7 +100,7 @@ class Room(core_models.TimeStampedModel):
     )
     # ManyToMany
     # ManyToMany 관계에서도 반대의 관계에서 query 를 호출할 경우가 있으므로
-    # related_name 설정 : amenities.room_set.all() -> amenities.roooms.all()
+    # related_name 설정 : amenities.room_set.all() -> amenities.rooms.all()
     amenities = models.ManyToManyField("Amenity", related_name="rooms", blank=True)
     facilities = models.ManyToManyField("Facility", related_name="rooms", blank=True)
     house_rule = models.ManyToManyField("HouseRule", related_name="rooms", blank=True)
@@ -239,9 +239,9 @@ class Photo(core_models.TimeStampedModel):
     """Photo Model Definition"""
 
     # uploads 폴더 내에 user_id/room_photos_room_id/파일명 으로 저장
-    def user_directory_path(instance, filename):
+    def user_directory_path(self, filename):
         return "user_{0}/room_photos/room_{1}/{2}".format(
-            instance.room.host.id, instance.room.id, filename
+            self.room.host.id, self.room.id, filename
         )
 
     caption = models.CharField(max_length=80)

@@ -4,11 +4,11 @@ from . import managers
 
 class TimeStampedModel(models.Model):
 
-    """Time Stamped Modeol"""
+    """Time Stamped Model"""
 
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-    objects = managers.CustomModelManager()
+    created = models.DateTimeField(auto_now_add=True)  # auto_now_add : 생성시에 자동 저장
+    updated = models.DateTimeField(auto_now=True)  # auto_now : update 시에 자동 저장
+    objects = managers.CustomModelManager()  # 모든 models 에 objects.get_or_none(...) 사용할 수 있게 함
 
     class Meta:
         abstract = True

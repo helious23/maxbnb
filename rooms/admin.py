@@ -21,6 +21,7 @@ class ItemAdmin(admin.ModelAdmin):
 class PhotoInline(admin.TabularInline):
 
     model = models.Photo
+    classes = ("collapse",)
 
     fieldsets = (
         (
@@ -140,9 +141,9 @@ class RoomAdmin(admin.ModelAdmin):
     #     super().save_model(request, obj, form, change)
 
     # list_fields 에 적용할 method
+    # self : RoomAdmin class, obj: Room class on model.py
     # def count_amenities(self, obj):
     #     return obj.amenities.count()
-
     # count_amenities.short_description = "# Amenities"
 
     def count_photos(self, obj):

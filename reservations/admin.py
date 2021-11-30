@@ -18,7 +18,7 @@ class ProgressListFilter(admin.SimpleListFilter):
         now = timezone.now().date()
         if self.value() == "True":  # in_progress 의 return value == True
             return queryset.filter(check_in__lte=now, check_out__gte=now)
-            # check_in__lt = now : check_in <= now
+            # check_in__lte = now : check_in <= now
         elif self.value() == "False":
             return queryset.exclude(check_in__lte=now, check_out__gte=now)
 

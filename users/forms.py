@@ -56,11 +56,9 @@ class SignUpForm(forms.ModelForm):
         except models.User.DoesNotExist:
             return email
 
-    def claen_password1(self):
+    def clean_password1(self):
         password = self.cleaned_data.get("password")
         password1 = self.cleaned_data.get("password1")
-        print(password, password1)
-
         if password != password1:
             raise forms.ValidationError("Password does not match")
         else:
